@@ -7,13 +7,18 @@
 - local-state interactions;
 - connector architecture;
 - module and event schemas.
+- public professional recruiter profiles, business contact routes, and public
+  recruiting activity used by the approval-only recruiter sprint.
+- recruiter-facing professional positioning intentionally prepared for public
+  outreach, without private application history or source-corpus records.
 
 ## Excluded
 
 - real names, phone numbers, birthdays, addresses, employers, or relationships;
 - emails, messages, browser history, listening history, or health exports;
 - account balances, transactions, policies, VINs, registrations, or documents;
-- resumes, job applications, relocation plans, or private project metadata;
+- private resumes, application history, private relocation records, or private
+  project metadata;
 - OAuth clients, access tokens, API keys, cookies, databases, and embeddings;
 - absolute paths from any personal machine.
 

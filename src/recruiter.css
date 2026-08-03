@@ -1,0 +1,7 @@
+@media(max-width:700px){
+  .sprint-hero{display:block;padding:20px}.sprint-metrics{grid-template-columns:repeat(3,1fr);margin-top:15px}
+  .daily-queue{display:flex;overflow:auto}.daily-queue button{min-width:150px}
+  .sprint-layout,.packet-grid{grid-template-columns:1fr}.recruiter-table{max-height:330px}
+  .recruiter-detail dl{grid-template-columns:1fr}.recruiter-title{display:block}.recruiter-title>div:last-child{margin-top:10px}
+  .followups{align-items:flex-start;flex-wrap:wrap}.packet-link{grid-template-columns:55px 1fr 18px}
+}

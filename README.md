@@ -45,6 +45,35 @@ The first visit asks the user to create a local name and passcode. The passcode
 is salted and hashed with Web Crypto and stored only in that browser profile;
 it is not a server account and cannot be recovered or used from another device.
 
+## Publish through an API for phone use
+
+The app is deployed directly through Vercel's HTTPS API. It does not use GitHub
+Pages, require a Git provider, or send the device-local login to Vercel.
+
+Create a Vercel access token, keep it outside the repository, and run:
+
+```bash
+VERCEL_TOKEN=your_token npm run deploy:api
+```
+
+The command builds the app, uploads the static output by content hash, creates a
+production deployment, waits for it to become ready, and prints the HTTPS phone
+URL. `VERCEL_PROJECT_NAME` can override the default `life-control-plane` project
+name; `VERCEL_TEAM_ID` can select a team account.
+
+Open the printed URL in Safari or Chrome. On iPhone choose **Share → Add to Home
+Screen**; on Android choose **Install app**. After the first successful visit,
+the installed app shell can start offline.
+
+## Recruiter sprint
+
+The Recruiters module contains a 40-person, approval-only Seattle outreach
+campaign. Recruiter research and public professional links ship as seed data;
+statuses, drafts, contact dates, follow-ups, and candidate project links stay in
+the device's local storage. The app never sends a message automatically. An
+explicit email/link action opens the user's own client, and **Mark sent** only
+updates the local campaign ledger.
+
 ## Privacy architecture
 
 The public frontend uses synthetic data from `src/demoData.ts`. A real

@@ -8,13 +8,14 @@ import {
 import { demoData } from "./demoData";
 import { getCredential, LocalCredential } from "./auth";
 import { LockScreen } from "./LockScreen";
+import { RecruiterSprint } from "./RecruiterSprint";
 
 interface InstallPromptEvent extends Event {
   prompt: () => Promise<void>;
   userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
 }
 
-type View = "home"|"career"|"money"|"move"|"people"|"music"|"build"|"content"|"admin"|"car";
+type View = "home"|"career"|"recruiters"|"money"|"move"|"people"|"music"|"build"|"content"|"admin"|"car";
 type Task = {id:number;text:string;done:boolean;area:string};
 const defaultTasks: Task[] = [
   {id:1,text:"Renew vehicle registration",done:false,area:"Car"},
@@ -25,6 +26,7 @@ const defaultTasks: Task[] = [
 const nav: {id:View;label:string;icon:typeof Home;color:string}[] = [
   {id:"home",label:"Control center",icon:Home,color:"#75e6b6"},
   {id:"career",label:"Career",icon:BriefcaseBusiness,color:"#74b9ff"},
+  {id:"recruiters",label:"Recruiters",icon:HeartHandshake,color:"#75e6b6"},
   {id:"money",label:"Money",icon:CircleDollarSign,color:"#f6c86b"},
   {id:"move",label:"Move",icon:Compass,color:"#fb8f67"},
   {id:"people",label:"People",icon:HeartHandshake,color:"#fb7185"},
@@ -38,6 +40,7 @@ const nav: {id:View;label:string;icon:typeof Home;color:string}[] = [
 const titles: Record<View,[string,string]> = {
   home:["Good morning","Everything that needs your attention, without the hunt."],
   career:["Career control center","Applications, evidence, interviews, and momentum."],
+  recruiters:["Recruiter sprint","Research, approve, contact, follow up, and get submitted."],
   money:["Financial command","Accounts, obligations, runway, and controls."],
   move:["Move planner","A decision becomes a sequence of executable steps."],
   people:["Your people","Living context—not a static address book."],
@@ -93,6 +96,7 @@ export default function App() {
       <header><div><p>{new Date().toLocaleDateString(undefined,{weekday:"long",month:"long",day:"numeric"})}</p><h1>{title}</h1><span>{subtitle}</span></div><div className="header-actions"><button onClick={install}><Download size={16}/>Install</button><button><Search size={16}/>Search</button><button><RefreshCw size={16}/>Refresh</button><button className="primary"><Plus size={16}/>Capture</button><button className="mobile-lock" onClick={lock} aria-label="Lock app"><LockKeyhole size={16}/></button></div></header>
       {view==="home"&&<HomeView setView={setView} />}
       {view==="career"&&<CareerView />}
+      {view==="recruiters"&&<RecruiterSprint />}
       {view==="money"&&<MoneyView />}
       {view==="move"&&<MoveView />}
       {view==="people"&&<PeopleView />}
