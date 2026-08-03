@@ -30,6 +30,21 @@ npm install
 npm run dev
 ```
 
+To open the development server from a phone on the same Wi-Fi network:
+
+```bash
+npm run dev -- --host 0.0.0.0
+```
+
+Then visit the computer's LAN address at port `5188`. Home-screen installation
+and offline use require a production build served over HTTPS (except on
+`localhost`). On iPhone, use **Share → Add to Home Screen**; on Android, use the
+browser's **Install app** action.
+
+The first visit asks the user to create a local name and passcode. The passcode
+is salted and hashed with Web Crypto and stored only in that browser profile;
+it is not a server account and cannot be recovered or used from another device.
+
 ## Privacy architecture
 
 The public frontend uses synthetic data from `src/demoData.ts`. A real

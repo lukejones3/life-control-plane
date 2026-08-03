@@ -3,11 +3,25 @@ import {
   Activity, ArrowUpRight, BriefcaseBusiness, Building2, Car, Check,
   ChevronRight, CircleDollarSign, Compass, Dumbbell, Film, Gauge,
   HeartHandshake, Home, ListChecks, Music2, Plane, Plus, RefreshCw,
-  Search, Settings2, Sparkles, WalletCards, Wrench,
+  Download, LockKeyhole, Search, Sparkles, WalletCards, Wrench,
 } from "lucide-react";
 import { demoData } from "./demoData";
+import { getCredential, LocalCredential } from "./auth";
+import { LockScreen } from "./LockScreen";
+
+interface InstallPromptEvent extends Event {
+  prompt: () => Promise<void>;
+  userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
+}
 
 type View = "home"|"career"|"money"|"move"|"people"|"music"|"build"|"content"|"admin"|"car";
+type Task = {id:number;text:string;done:boolean;area:string};
+const defaultTasks: Task[] = [
+  {id:1,text:"Renew vehicle registration",done:false,area:"Car"},
+  {id:2,text:"Prepare interview examples",done:false,area:"Career"},
+  {id:3,text:"Book dental cleaning",done:true,area:"Health"},
+  {id:4,text:"Buy groceries",done:false,area:"Home"},
+];
 const nav: {id:View;label:string;icon:typeof Home;color:string}[] = [
   {id:"home",label:"Control center",icon:Home,color:"#75e6b6"},
   {id:"career",label:"Career",icon:BriefcaseBusiness,color:"#74b9ff"},
@@ -45,29 +59,38 @@ function Badge({children,tone=""}:{children:React.ReactNode;tone?:string}) {
 }
 
 export default function App() {
+  const [credential,setCredential] = useState<LocalCredential|null>(()=>getCredential());
+  const [unlocked,setUnlocked] = useState(()=>sessionStorage.getItem("lcp-unlocked")==="yes");
+  const [installPrompt,setInstallPrompt] = useState<InstallPromptEvent|null>(null);
   const [view,setView] = useState<View>(()=>(localStorage.getItem("demo-view") as View)||"home");
-  const [tasks,setTasks] = useState([
-    {id:1,text:"Renew vehicle registration",done:false,area:"Car"},
-    {id:2,text:"Prepare interview examples",done:false,area:"Career"},
-    {id:3,text:"Book dental cleaning",done:true,area:"Health"},
-    {id:4,text:"Buy groceries",done:false,area:"Home"},
-  ]);
+  const [tasks,setTasks] = useState<Task[]>(()=>JSON.parse(localStorage.getItem("demo-tasks")||"null") as Task[]||defaultTasks);
   const [note,setNote] = useState("");
   const [savedNotes,setSavedNotes] = useState<string[]>(()=>JSON.parse(localStorage.getItem("demo-notes")||"[]"));
   useEffect(()=>localStorage.setItem("demo-view",view),[view]);
   useEffect(()=>localStorage.setItem("demo-notes",JSON.stringify(savedNotes)),[savedNotes]);
+  useEffect(()=>localStorage.setItem("demo-tasks",JSON.stringify(tasks)),[tasks]);
+  useEffect(()=>{
+    const capture=(event:Event)=>{event.preventDefault();setInstallPrompt(event as InstallPromptEvent)};
+    window.addEventListener("beforeinstallprompt",capture);
+    return ()=>window.removeEventListener("beforeinstallprompt",capture);
+  },[]);
   const openTasks=useMemo(()=>tasks.filter(t=>!t.done).length,[tasks]);
   const [title,subtitle]=titles[view];
+
+  if (!credential || !unlocked) return <LockScreen credential={credential} onUnlock={next=>{setCredential(next);sessionStorage.setItem("lcp-unlocked","yes");setUnlocked(true)}}/>;
+
+  const lock=()=>{sessionStorage.removeItem("lcp-unlocked");setUnlocked(false)};
+  const install=async()=>{if(installPrompt){await installPrompt.prompt();await installPrompt.userChoice;setInstallPrompt(null)}else alert("On iPhone: tap Share, then Add to Home Screen. On Android: open the browser menu and tap Install app.")};
 
   return <div className="shell">
     <aside>
       <div className="brand"><div className="brand-mark"><Sparkles size={18}/></div><div><b>Life</b><span>Control Plane</span></div></div>
       <nav>{nav.map(item=><button key={item.id} className={view===item.id?"active":""} onClick={()=>setView(item.id)} style={{"--accent":item.color} as React.CSSProperties}><item.icon size={17}/><span>{item.label}</span>{item.id==="admin"&&openTasks>0&&<i>{openTasks}</i>}</button>)}</nav>
       <div className="privacy"><Gauge size={16}/><div><b>Demo mode</b><span>Synthetic data only</span></div></div>
-      <button className="profile"><span>DU</span><div><b>{demoData.person.name}</b><small>Local workspace</small></div><Settings2 size={15}/></button>
+      <button className="profile" onClick={lock} title="Lock this app"><span>{credential.username.slice(0,2).toUpperCase()}</span><div><b>{credential.username}</b><small>Tap to lock</small></div><LockKeyhole size={15}/></button>
     </aside>
     <main>
-      <header><div><p>{new Date().toLocaleDateString(undefined,{weekday:"long",month:"long",day:"numeric"})}</p><h1>{title}</h1><span>{subtitle}</span></div><div className="header-actions"><button><Search size={16}/>Search</button><button><RefreshCw size={16}/>Refresh</button><button className="primary"><Plus size={16}/>Capture</button></div></header>
+      <header><div><p>{new Date().toLocaleDateString(undefined,{weekday:"long",month:"long",day:"numeric"})}</p><h1>{title}</h1><span>{subtitle}</span></div><div className="header-actions"><button onClick={install}><Download size={16}/>Install</button><button><Search size={16}/>Search</button><button><RefreshCw size={16}/>Refresh</button><button className="primary"><Plus size={16}/>Capture</button><button className="mobile-lock" onClick={lock} aria-label="Lock app"><LockKeyhole size={16}/></button></div></header>
       {view==="home"&&<HomeView setView={setView} />}
       {view==="career"&&<CareerView />}
       {view==="money"&&<MoneyView />}
@@ -149,7 +172,7 @@ function ContentView() {
   </div>;
 }
 
-function AdminView({tasks,setTasks}:{tasks:{id:number;text:string;done:boolean;area:string}[];setTasks:React.Dispatch<React.SetStateAction<{id:number;text:string;done:boolean;area:string}[]>>}) {
+function AdminView({tasks,setTasks}:{tasks:Task[];setTasks:React.Dispatch<React.SetStateAction<Task[]>>}) {
   const [value,setValue]=useState("");
   return <div className="page"><div className="admin-hero"><ListChecks/><div><span>Open loop count</span><strong>{tasks.filter(t=>!t.done).length}</strong><small>Every obligation has one owner and one next action.</small></div></div>
     <Card><Head eyebrow="Unified task layer" title="What requires action"/><form className="task-form" onSubmit={e=>{e.preventDefault();if(value.trim()){setTasks(t=>[...t,{id:Date.now(),text:value.trim(),done:false,area:"Inbox"}]);setValue("")}}}><input value={value} onChange={e=>setValue(e.target.value)} placeholder="Add an obligation"/><button><Plus/>Add</button></form>{tasks.map(t=><div className={`task ${t.done?"done":""}`} key={t.id}><button onClick={()=>setTasks(all=>all.map(x=>x.id===t.id?{...x,done:!x.done}:x))}><Check/></button><p><b>{t.text}</b><span>{t.area}</span></p><Badge>{t.done?"complete":"open"}</Badge></div>)}</Card>
