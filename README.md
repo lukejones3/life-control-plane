@@ -45,6 +45,11 @@ The first visit asks the user to create a local name and passcode. The passcode
 is salted and hashed with Web Crypto and stored only in that browser profile;
 it is not a server account and cannot be recovered or used from another device.
 
+The owner's private hosted build uses a preview deployment protected by Vercel
+Authentication and is built with `VITE_PLATFORM_AUTH=true`. Authentication then
+happens at Vercel's edge before application assets are served. The device-local
+passcode is disabled in that build because it is not a network access boundary.
+
 ## Publish through an API for phone use
 
 The app is deployed directly through Vercel's HTTPS API. It does not use GitHub

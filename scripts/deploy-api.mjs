@@ -7,6 +7,11 @@ const outputDirectory = "dist";
 const token = process.env.VERCEL_TOKEN;
 const projectName = process.env.VERCEL_PROJECT_NAME || "life-control-plane";
 const teamId = process.env.VERCEL_TEAM_ID;
+const deploymentTarget = process.env.VERCEL_DEPLOYMENT_TARGET || "production";
+
+if (!new Set(["production", "preview"]).has(deploymentTarget)) {
+  throw new Error("VERCEL_DEPLOYMENT_TARGET must be production or preview.");
+}
 
 if (!token) {
   console.error("VERCEL_TOKEN is required. Create an access token in Vercel and pass it only as an environment variable.");
@@ -67,15 +72,17 @@ for (const file of files) {
   console.log("done");
 }
 
+const deploymentPayload = {
+  name: projectName,
+  files: files.map(({ file, sha, size }) => ({ file, sha, size })),
+  projectSettings: { framework: null },
+};
+if (deploymentTarget === "production") deploymentPayload.target = "production";
+
 const deployment = await api("/v13/deployments", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({
-    name: projectName,
-    target: "production",
-    files: files.map(({ file, sha, size }) => ({ file, sha, size })),
-    projectSettings: { framework: null },
-  }),
+  body: JSON.stringify(deploymentPayload),
 });
 
 let current = deployment;
@@ -88,4 +95,4 @@ if (current.readyState !== "READY") {
   throw new Error(`Deployment did not become ready (state: ${current.readyState || "unknown"}).`);
 }
 
-console.log(`\nPhone URL: https://${current.alias?.[0] || current.url}`);
+console.log(`\n${deploymentTarget === "preview" ? "Private candidate URL" : "Phone URL"}: https://${current.alias?.[0] || current.url}`);

@@ -8,6 +8,7 @@
     "build": "tsc -b && vite build",
     "test": "node scripts/verify-recruiter-sprint.mjs",
     "deploy:api": "npm run build && node scripts/deploy-api.mjs",
+    "deploy:private": "npm run build && VERCEL_DEPLOYMENT_TARGET=preview node scripts/deploy-api.mjs",
     "preview": "vite preview",
     "privacy:scan": "./scripts/privacy-scan.sh"
   },

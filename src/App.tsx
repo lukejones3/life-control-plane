@@ -62,8 +62,9 @@ function Badge({children,tone=""}:{children:React.ReactNode;tone?:string}) {
 }
 
 export default function App() {
-  const [credential,setCredential] = useState<LocalCredential|null>(()=>getCredential());
-  const [unlocked,setUnlocked] = useState(()=>sessionStorage.getItem("lcp-unlocked")==="yes");
+  const platformAuth = import.meta.env.VITE_PLATFORM_AUTH === "true";
+  const [credential,setCredential] = useState<LocalCredential|null>(()=>platformAuth ? {username:"Luke",salt:"",hash:""} : getCredential());
+  const [unlocked,setUnlocked] = useState(()=>platformAuth || sessionStorage.getItem("lcp-unlocked")==="yes");
   const [installPrompt,setInstallPrompt] = useState<InstallPromptEvent|null>(null);
   const [view,setView] = useState<View>(()=>(localStorage.getItem("demo-view") as View)||"home");
   const [tasks,setTasks] = useState<Task[]>(()=>JSON.parse(localStorage.getItem("demo-tasks")||"null") as Task[]||defaultTasks);
@@ -80,7 +81,7 @@ export default function App() {
   const openTasks=useMemo(()=>tasks.filter(t=>!t.done).length,[tasks]);
   const [title,subtitle]=titles[view];
 
-  if (!credential || !unlocked) return <LockScreen credential={credential} onUnlock={next=>{setCredential(next);sessionStorage.setItem("lcp-unlocked","yes");setUnlocked(true)}}/>;
+  if (!platformAuth && (!credential || !unlocked)) return <LockScreen credential={credential} onUnlock={next=>{setCredential(next);sessionStorage.setItem("lcp-unlocked","yes");setUnlocked(true)}}/>;
 
   const lock=()=>{sessionStorage.removeItem("lcp-unlocked");setUnlocked(false)};
   const install=async()=>{if(installPrompt){await installPrompt.prompt();await installPrompt.userChoice;setInstallPrompt(null)}else alert("On iPhone: tap Share, then Add to Home Screen. On Android: open the browser menu and tap Install app.")};
@@ -90,10 +91,10 @@ export default function App() {
       <div className="brand"><div className="brand-mark"><Sparkles size={18}/></div><div><b>Life</b><span>Control Plane</span></div></div>
       <nav>{nav.map(item=><button key={item.id} className={view===item.id?"active":""} onClick={()=>setView(item.id)} style={{"--accent":item.color} as React.CSSProperties}><item.icon size={17}/><span>{item.label}</span>{item.id==="admin"&&openTasks>0&&<i>{openTasks}</i>}</button>)}</nav>
       <div className="privacy"><Gauge size={16}/><div><b>Demo mode</b><span>Synthetic data only</span></div></div>
-      <button className="profile" onClick={lock} title="Lock this app"><span>{credential.username.slice(0,2).toUpperCase()}</span><div><b>{credential.username}</b><small>Tap to lock</small></div><LockKeyhole size={15}/></button>
+      <button className="profile" onClick={platformAuth ? undefined : lock} title={platformAuth ? "Identity protected by Vercel" : "Lock this app"}><span>{credential?.username.slice(0,2).toUpperCase()}</span><div><b>{credential?.username}</b><small>{platformAuth ? "Private account" : "Tap to lock"}</small></div><LockKeyhole size={15}/></button>
     </aside>
     <main>
-      <header><div><p>{new Date().toLocaleDateString(undefined,{weekday:"long",month:"long",day:"numeric"})}</p><h1>{title}</h1><span>{subtitle}</span></div><div className="header-actions"><button onClick={install}><Download size={16}/>Install</button><button><Search size={16}/>Search</button><button><RefreshCw size={16}/>Refresh</button><button className="primary"><Plus size={16}/>Capture</button><button className="mobile-lock" onClick={lock} aria-label="Lock app"><LockKeyhole size={16}/></button></div></header>
+      <header><div><p>{new Date().toLocaleDateString(undefined,{weekday:"long",month:"long",day:"numeric"})}</p><h1>{title}</h1><span>{subtitle}</span></div><div className="header-actions"><button onClick={install}><Download size={16}/>Install</button><button><Search size={16}/>Search</button><button><RefreshCw size={16}/>Refresh</button><button className="primary"><Plus size={16}/>Capture</button>{!platformAuth&&<button className="mobile-lock" onClick={lock} aria-label="Lock app"><LockKeyhole size={16}/></button>}</div></header>
       {view==="home"&&<HomeView setView={setView} />}
       {view==="career"&&<CareerView />}
       {view==="recruiters"&&<RecruiterSprint />}
