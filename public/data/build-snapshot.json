@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-09T20:42:39.074Z",
+  "generatedAt": "2026-08-09T20:52:09.568Z",
   "owner": "lukejones3",
   "totals": {
-    "commits7d": 111,
-    "commits30d": 124,
+    "commits7d": 113,
+    "commits30d": 126,
     "activeProjects": 4
   },
   "projects": [
@@ -25,10 +25,10 @@
       "repo": "life-control-plane",
       "repository": "https://github.com/lukejones3/life-control-plane",
       "defaultBranch": "main",
-      "commits7d": 4,
-      "commits30d": 5,
-      "lastCommitAt": "2026-08-07T08:14:14Z",
-      "lastCommitMessage": "feat: support edge-authenticated private deployment"
+      "commits7d": 6,
+      "commits30d": 7,
+      "lastCommitAt": "2026-08-09T20:51:55Z",
+      "lastCommitMessage": "fix: publish scheduled build snapshot"
     },
     {
       "id": "life-topology-lab",
@@ -1871,11 +1871,25 @@
     },
     {
       "date": "2026-08-09",
-      "count": 19,
+      "count": 21,
       "level": 4
     }
   ],
   "recentCommits": [
+    {
+      "projectId": "life-control-plane",
+      "projectName": "Life Control Plane",
+      "sha": "d0811b6",
+      "timestamp": "2026-08-09T20:51:55Z",
+      "message": "fix: publish scheduled build snapshot"
+    },
+    {
+      "projectId": "life-control-plane",
+      "projectName": "Life Control Plane",
+      "sha": "7e73c4a",
+      "timestamp": "2026-08-09T20:47:16Z",
+      "message": "feat: refresh public build activity daily"
+    },
     {
       "projectId": "lander-data",
       "projectName": "Lander data platform",
@@ -2071,20 +2085,6 @@
       "sha": "60cf5c9",
       "timestamp": "2026-08-07T17:58:02Z",
       "message": "fix: harden model dependency supply chain"
-    },
-    {
-      "projectId": "life-control-plane",
-      "projectName": "Life Control Plane",
-      "sha": "5b191ca",
-      "timestamp": "2026-08-07T08:14:14Z",
-      "message": "feat: support edge-authenticated private deployment"
-    },
-    {
-      "projectId": "lander-data",
-      "projectName": "Lander data platform",
-      "sha": "39b7e26",
-      "timestamp": "2026-08-07T07:52:35Z",
-      "message": "fix: enforce explicit public API cache policy"
     }
   ]
 }
