@@ -32,6 +32,6 @@ jobs:
           fi
           git config user.name "life-control-plane[bot]"
           git config user.email "life-control-plane[bot]@users.noreply.github.com"
-          git add public/data/build-snapshot.json
+          git add -f public/data/build-snapshot.json
           git commit -m "chore(data): refresh build snapshot"
           git push
