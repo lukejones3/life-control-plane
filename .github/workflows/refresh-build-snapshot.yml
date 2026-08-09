@@ -1,0 +1,37 @@
+name: Refresh build activity
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "23 10 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-build-snapshot
+  cancel-in-progress: true
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Generate public repository activity
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node scripts/generate-public-build-snapshot.mjs
+      - name: Publish changed snapshot
+        run: |
+          if git diff --quiet -- public/data/build-snapshot.json; then
+            echo "No build activity changed."
+            exit 0
+          fi
+          git config user.name "life-control-plane[bot]"
+          git config user.email "life-control-plane[bot]@users.noreply.github.com"
+          git add public/data/build-snapshot.json
+          git commit -m "chore(data): refresh build snapshot"
+          git push
