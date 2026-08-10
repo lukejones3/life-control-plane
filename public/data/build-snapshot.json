@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-09T20:52:09.568Z",
+  "generatedAt": "2026-08-10T11:28:25.631Z",
   "owner": "lukejones3",
   "totals": {
     "commits7d": 113,
-    "commits30d": 126,
+    "commits30d": 127,
     "activeProjects": 4
   },
   "projects": [
@@ -15,9 +15,9 @@
       "repository": "https://github.com/lukejones3/job-market-analytics",
       "defaultBranch": "main",
       "commits7d": 102,
-      "commits30d": 108,
-      "lastCommitAt": "2026-08-09T19:49:16Z",
-      "lastCommitMessage": "feat: add scoped Workday recovery runs"
+      "commits30d": 109,
+      "lastCommitAt": "2026-08-10T02:58:40Z",
+      "lastCommitMessage": "fix: checkpoint Workday ingestion batches"
     },
     {
       "id": "life-control-plane",
@@ -54,11 +54,6 @@
     }
   ],
   "contributionDays": [
-    {
-      "date": "2025-08-11",
-      "count": 0,
-      "level": 0
-    },
     {
       "date": "2025-08-12",
       "count": 0,
@@ -1873,9 +1868,21 @@
       "date": "2026-08-09",
       "count": 21,
       "level": 4
+    },
+    {
+      "date": "2026-08-10",
+      "count": 1,
+      "level": 1
     }
   ],
   "recentCommits": [
+    {
+      "projectId": "lander-data",
+      "projectName": "Lander data platform",
+      "sha": "b260e74",
+      "timestamp": "2026-08-10T02:58:40Z",
+      "message": "fix: checkpoint Workday ingestion batches"
+    },
     {
       "projectId": "life-control-plane",
       "projectName": "Life Control Plane",
@@ -2078,13 +2085,6 @@
       "sha": "3ea4147",
       "timestamp": "2026-08-07T18:47:54Z",
       "message": "feat: clean company history and repost signals"
-    },
-    {
-      "projectId": "life-topology-lab",
-      "projectName": "Life Topology Lab",
-      "sha": "60cf5c9",
-      "timestamp": "2026-08-07T17:58:02Z",
-      "message": "fix: harden model dependency supply chain"
     }
   ]
 }
