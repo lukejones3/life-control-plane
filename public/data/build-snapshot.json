@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-12T11:12:39.050Z",
+  "generatedAt": "2026-08-13T11:13:14.236Z",
   "owner": "lukejones3",
   "totals": {
-    "commits7d": 103,
-    "commits30d": 138,
+    "commits7d": 81,
+    "commits30d": 143,
     "activeProjects": 4
   },
   "projects": [
@@ -14,10 +14,10 @@
       "repo": "job-market-analytics",
       "repository": "https://github.com/lukejones3/job-market-analytics",
       "defaultBranch": "main",
-      "commits7d": 95,
-      "commits30d": 120,
-      "lastCommitAt": "2026-08-12T05:48:00Z",
-      "lastCommitMessage": "Preserve stable canonical identifiers"
+      "commits7d": 73,
+      "commits30d": 125,
+      "lastCommitAt": "2026-08-12T21:44:58Z",
+      "lastCommitMessage": "Exclude staff-tier roles from outreach feed"
     },
     {
       "id": "life-control-plane",
@@ -54,11 +54,6 @@
     }
   ],
   "contributionDays": [
-    {
-      "date": "2025-08-14",
-      "count": 0,
-      "level": 0
-    },
     {
       "date": "2025-08-15",
       "count": 0,
@@ -1871,11 +1866,51 @@
     },
     {
       "date": "2026-08-12",
-      "count": 11,
+      "count": 16,
       "level": 4
+    },
+    {
+      "date": "2026-08-13",
+      "count": 0,
+      "level": 0
     }
   ],
   "recentCommits": [
+    {
+      "projectId": "lander-data",
+      "projectName": "Lander data platform",
+      "sha": "848d8ba",
+      "timestamp": "2026-08-12T21:44:58Z",
+      "message": "Exclude staff-tier roles from outreach feed"
+    },
+    {
+      "projectId": "lander-data",
+      "projectName": "Lander data platform",
+      "sha": "4a9b701",
+      "timestamp": "2026-08-12T21:41:26Z",
+      "message": "Add private fresh-job outreach feed"
+    },
+    {
+      "projectId": "lander-data",
+      "projectName": "Lander data platform",
+      "sha": "072d437",
+      "timestamp": "2026-08-12T19:20:45Z",
+      "message": "Allow full Workday crawl to finish"
+    },
+    {
+      "projectId": "lander-data",
+      "projectName": "Lander data platform",
+      "sha": "f7195f2",
+      "timestamp": "2026-08-12T19:14:27Z",
+      "message": "Keep public snapshot atomic during ingestion"
+    },
+    {
+      "projectId": "lander-data",
+      "projectName": "Lander data platform",
+      "sha": "598abfe",
+      "timestamp": "2026-08-12T19:05:19Z",
+      "message": "Prepare Google indexing for expanded quota"
+    },
     {
       "projectId": "lander-data",
       "projectName": "Lander data platform",
@@ -2050,41 +2085,6 @@
       "sha": "86c3c15",
       "timestamp": "2026-08-09T19:16:12Z",
       "message": "perf: prioritize expansion ingestion"
-    },
-    {
-      "projectId": "lander-data",
-      "projectName": "Lander data platform",
-      "sha": "e271476",
-      "timestamp": "2026-08-09T19:12:44Z",
-      "message": "fix: integrate career tenants before direct crawl"
-    },
-    {
-      "projectId": "lander-data",
-      "projectName": "Lander data platform",
-      "sha": "f852426",
-      "timestamp": "2026-08-09T19:09:34Z",
-      "message": "fix: quarantine blocked career hosts"
-    },
-    {
-      "projectId": "lander-data",
-      "projectName": "Lander data platform",
-      "sha": "0b85af3",
-      "timestamp": "2026-08-09T19:08:58Z",
-      "message": "fix: reject third-party career host results"
-    },
-    {
-      "projectId": "lander-data",
-      "projectName": "Lander data platform",
-      "sha": "bb467b4",
-      "timestamp": "2026-08-09T19:04:00Z",
-      "message": "perf: batch crawl tenant backfill"
-    },
-    {
-      "projectId": "lander-data",
-      "projectName": "Lander data platform",
-      "sha": "9a0d036",
-      "timestamp": "2026-08-09T18:41:14Z",
-      "message": "feat: add governed career host expansion"
     }
   ]
 }
