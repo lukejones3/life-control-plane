@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-13T11:13:14.236Z",
+  "generatedAt": "2026-08-14T11:11:44.496Z",
   "owner": "lukejones3",
   "totals": {
-    "commits7d": 81,
-    "commits30d": 143,
+    "commits7d": 50,
+    "commits30d": 146,
     "activeProjects": 4
   },
   "projects": [
@@ -14,10 +14,10 @@
       "repo": "job-market-analytics",
       "repository": "https://github.com/lukejones3/job-market-analytics",
       "defaultBranch": "main",
-      "commits7d": 73,
-      "commits30d": 125,
-      "lastCommitAt": "2026-08-12T21:44:58Z",
-      "lastCommitMessage": "Exclude staff-tier roles from outreach feed"
+      "commits7d": 47,
+      "commits30d": 128,
+      "lastCommitAt": "2026-08-13T21:11:20Z",
+      "lastCommitMessage": "Keep market answers on live company pages"
     },
     {
       "id": "life-control-plane",
@@ -25,7 +25,7 @@
       "repo": "life-control-plane",
       "repository": "https://github.com/lukejones3/life-control-plane",
       "defaultBranch": "main",
-      "commits7d": 3,
+      "commits7d": 2,
       "commits30d": 7,
       "lastCommitAt": "2026-08-09T20:51:55Z",
       "lastCommitMessage": "fix: publish scheduled build snapshot"
@@ -47,18 +47,13 @@
       "repo": "luke-jones-portfolio",
       "repository": "https://github.com/lukejones3/luke-jones-portfolio",
       "defaultBranch": "main",
-      "commits7d": 4,
+      "commits7d": 0,
       "commits30d": 4,
       "lastCommitAt": "2026-08-07T07:37:54Z",
       "lastCommitMessage": "refine portfolio copy for direct professional tone"
     }
   ],
   "contributionDays": [
-    {
-      "date": "2025-08-15",
-      "count": 0,
-      "level": 0
-    },
     {
       "date": "2025-08-16",
       "count": 0,
@@ -1871,11 +1866,37 @@
     },
     {
       "date": "2026-08-13",
+      "count": 3,
+      "level": 2
+    },
+    {
+      "date": "2026-08-14",
       "count": 0,
       "level": 0
     }
   ],
   "recentCommits": [
+    {
+      "projectId": "lander-data",
+      "projectName": "Lander data platform",
+      "sha": "cbbddb9",
+      "timestamp": "2026-08-13T21:11:20Z",
+      "message": "Keep market answers on live company pages"
+    },
+    {
+      "projectId": "lander-data",
+      "projectName": "Lander data platform",
+      "sha": "16ba815",
+      "timestamp": "2026-08-13T21:06:32Z",
+      "message": "Fix IndexNow Airflow dependency fan-in"
+    },
+    {
+      "projectId": "lander-data",
+      "projectName": "Lander data platform",
+      "sha": "f48f727",
+      "timestamp": "2026-08-13T21:05:15Z",
+      "message": "Publish source-backed market answers"
+    },
     {
       "projectId": "lander-data",
       "projectName": "Lander data platform",
@@ -2064,27 +2085,6 @@
       "sha": "a4785db",
       "timestamp": "2026-08-09T19:22:30Z",
       "message": "perf: crawl fresh Workday tenants first"
-    },
-    {
-      "projectId": "lander-data",
-      "projectName": "Lander data platform",
-      "sha": "78038dc",
-      "timestamp": "2026-08-09T19:21:03Z",
-      "message": "test: cover career ingestion fast path"
-    },
-    {
-      "projectId": "lander-data",
-      "projectName": "Lander data platform",
-      "sha": "cbe5cb0",
-      "timestamp": "2026-08-09T19:17:58Z",
-      "message": "fix: bound Workday throttling"
-    },
-    {
-      "projectId": "lander-data",
-      "projectName": "Lander data platform",
-      "sha": "86c3c15",
-      "timestamp": "2026-08-09T19:16:12Z",
-      "message": "perf: prioritize expansion ingestion"
     }
   ]
 }
