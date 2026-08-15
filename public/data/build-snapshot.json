@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-14T11:11:44.496Z",
+  "generatedAt": "2026-08-15T10:43:25.587Z",
   "owner": "lukejones3",
   "totals": {
-    "commits7d": 50,
-    "commits30d": 146,
+    "commits7d": 44,
+    "commits30d": 149,
     "activeProjects": 4
   },
   "projects": [
@@ -14,10 +14,10 @@
       "repo": "job-market-analytics",
       "repository": "https://github.com/lukejones3/job-market-analytics",
       "defaultBranch": "main",
-      "commits7d": 47,
-      "commits30d": 128,
-      "lastCommitAt": "2026-08-13T21:11:20Z",
-      "lastCommitMessage": "Keep market answers on live company pages"
+      "commits7d": 42,
+      "commits30d": 131,
+      "lastCommitAt": "2026-08-14T18:12:12Z",
+      "lastCommitMessage": "Handle auth migration cursor rows safely"
     },
     {
       "id": "life-control-plane",
@@ -36,7 +36,7 @@
       "repo": "life-topology-lab",
       "repository": "https://github.com/lukejones3/life-topology-lab",
       "defaultBranch": "main",
-      "commits7d": 1,
+      "commits7d": 0,
       "commits30d": 7,
       "lastCommitAt": "2026-08-07T17:58:02Z",
       "lastCommitMessage": "fix: harden model dependency supply chain"
@@ -54,11 +54,6 @@
     }
   ],
   "contributionDays": [
-    {
-      "date": "2025-08-16",
-      "count": 0,
-      "level": 0
-    },
     {
       "date": "2025-08-17",
       "count": 0,
@@ -1871,11 +1866,37 @@
     },
     {
       "date": "2026-08-14",
+      "count": 3,
+      "level": 2
+    },
+    {
+      "date": "2026-08-15",
       "count": 0,
       "level": 0
     }
   ],
   "recentCommits": [
+    {
+      "projectId": "lander-data",
+      "projectName": "Lander data platform",
+      "sha": "bc7fb36",
+      "timestamp": "2026-08-14T18:12:12Z",
+      "message": "Handle auth migration cursor rows safely"
+    },
+    {
+      "projectId": "lander-data",
+      "projectName": "Lander data platform",
+      "sha": "f31f99e",
+      "timestamp": "2026-08-14T18:10:26Z",
+      "message": "Fix magic link credential rotation"
+    },
+    {
+      "projectId": "lander-data",
+      "projectName": "Lander data platform",
+      "sha": "5b95714",
+      "timestamp": "2026-08-14T18:08:09Z",
+      "message": "Fix returning user magic links"
+    },
     {
       "projectId": "lander-data",
       "projectName": "Lander data platform",
@@ -2064,27 +2085,6 @@
       "sha": "32a6d6f",
       "timestamp": "2026-08-09T19:29:03Z",
       "message": "fix: coordinate Workday cooldowns"
-    },
-    {
-      "projectId": "lander-data",
-      "projectName": "Lander data platform",
-      "sha": "62a3262",
-      "timestamp": "2026-08-09T19:27:18Z",
-      "message": "fix: distinguish sitemap fallback failures"
-    },
-    {
-      "projectId": "lander-data",
-      "projectName": "Lander data platform",
-      "sha": "3a5c318",
-      "timestamp": "2026-08-09T19:25:09Z",
-      "message": "fix: globally pace Workday requests"
-    },
-    {
-      "projectId": "lander-data",
-      "projectName": "Lander data platform",
-      "sha": "a4785db",
-      "timestamp": "2026-08-09T19:22:30Z",
-      "message": "perf: crawl fresh Workday tenants first"
     }
   ]
 }
