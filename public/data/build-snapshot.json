@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-15T10:43:25.587Z",
+  "generatedAt": "2026-08-16T10:43:51.990Z",
   "owner": "lukejones3",
   "totals": {
-    "commits7d": 44,
+    "commits7d": 42,
     "commits30d": 149,
     "activeProjects": 4
   },
@@ -14,7 +14,7 @@
       "repo": "job-market-analytics",
       "repository": "https://github.com/lukejones3/job-market-analytics",
       "defaultBranch": "main",
-      "commits7d": 42,
+      "commits7d": 40,
       "commits30d": 131,
       "lastCommitAt": "2026-08-14T18:12:12Z",
       "lastCommitMessage": "Handle auth migration cursor rows safely"
@@ -54,11 +54,6 @@
     }
   ],
   "contributionDays": [
-    {
-      "date": "2025-08-17",
-      "count": 0,
-      "level": 0
-    },
     {
       "date": "2025-08-18",
       "count": 0,
@@ -1871,6 +1866,11 @@
     },
     {
       "date": "2026-08-15",
+      "count": 0,
+      "level": 0
+    },
+    {
+      "date": "2026-08-16",
       "count": 0,
       "level": 0
     }
