@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-16T10:43:51.990Z",
+  "generatedAt": "2026-08-17T10:51:17.872Z",
   "owner": "lukejones3",
   "totals": {
-    "commits7d": 42,
-    "commits30d": 149,
+    "commits7d": 24,
+    "commits30d": 151,
     "activeProjects": 4
   },
   "projects": [
@@ -14,10 +14,10 @@
       "repo": "job-market-analytics",
       "repository": "https://github.com/lukejones3/job-market-analytics",
       "defaultBranch": "main",
-      "commits7d": 40,
-      "commits30d": 131,
-      "lastCommitAt": "2026-08-14T18:12:12Z",
-      "lastCommitMessage": "Handle auth migration cursor rows safely"
+      "commits7d": 24,
+      "commits30d": 133,
+      "lastCommitAt": "2026-08-17T02:18:02Z",
+      "lastCommitMessage": "feat: expand career outreach role frontiers"
     },
     {
       "id": "life-control-plane",
@@ -25,7 +25,7 @@
       "repo": "life-control-plane",
       "repository": "https://github.com/lukejones3/life-control-plane",
       "defaultBranch": "main",
-      "commits7d": 2,
+      "commits7d": 0,
       "commits30d": 7,
       "lastCommitAt": "2026-08-09T20:51:55Z",
       "lastCommitMessage": "fix: publish scheduled build snapshot"
@@ -54,11 +54,6 @@
     }
   ],
   "contributionDays": [
-    {
-      "date": "2025-08-18",
-      "count": 0,
-      "level": 0
-    },
     {
       "date": "2025-08-19",
       "count": 0,
@@ -1871,11 +1866,30 @@
     },
     {
       "date": "2026-08-16",
-      "count": 0,
-      "level": 0
+      "count": 1,
+      "level": 1
+    },
+    {
+      "date": "2026-08-17",
+      "count": 1,
+      "level": 1
     }
   ],
   "recentCommits": [
+    {
+      "projectId": "lander-data",
+      "projectName": "Lander data platform",
+      "sha": "08e3b53",
+      "timestamp": "2026-08-17T02:18:02Z",
+      "message": "feat: expand career outreach role frontiers"
+    },
+    {
+      "projectId": "lander-data",
+      "projectName": "Lander data platform",
+      "sha": "43aea4e",
+      "timestamp": "2026-08-16T21:45:08Z",
+      "message": "feat: strengthen outreach career feed"
+    },
     {
       "projectId": "lander-data",
       "projectName": "Lander data platform",
@@ -2071,20 +2085,6 @@
       "sha": "76e4709",
       "timestamp": "2026-08-09T19:36:29Z",
       "message": "perf: unblock priority source ingestion"
-    },
-    {
-      "projectId": "lander-data",
-      "projectName": "Lander data platform",
-      "sha": "537d20f",
-      "timestamp": "2026-08-09T19:32:45Z",
-      "message": "fix: allow paced Workday crawl to finish"
-    },
-    {
-      "projectId": "lander-data",
-      "projectName": "Lander data platform",
-      "sha": "32a6d6f",
-      "timestamp": "2026-08-09T19:29:03Z",
-      "message": "fix: coordinate Workday cooldowns"
     }
   ]
 }
