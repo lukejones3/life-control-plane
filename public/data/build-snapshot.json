@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-19T10:49:46.643Z",
+  "generatedAt": "2026-08-20T10:51:15.677Z",
   "owner": "lukejones3",
   "totals": {
-    "commits7d": 13,
-    "commits30d": 151,
+    "commits7d": 9,
+    "commits30d": 148,
     "activeProjects": 4
   },
   "projects": [
@@ -14,10 +14,10 @@
       "repo": "job-market-analytics",
       "repository": "https://github.com/lukejones3/job-market-analytics",
       "defaultBranch": "main",
-      "commits7d": 13,
-      "commits30d": 133,
-      "lastCommitAt": "2026-08-17T02:18:02Z",
-      "lastCommitMessage": "feat: expand career outreach role frontiers"
+      "commits7d": 9,
+      "commits30d": 130,
+      "lastCommitAt": "2026-08-20T04:32:36Z",
+      "lastCommitMessage": "Remove obsolete backend context snapshot"
     },
     {
       "id": "life-control-plane",
@@ -54,11 +54,6 @@
     }
   ],
   "contributionDays": [
-    {
-      "date": "2025-08-21",
-      "count": 0,
-      "level": 0
-    },
     {
       "date": "2025-08-22",
       "count": 0,
@@ -1873,9 +1868,21 @@
       "date": "2026-08-19",
       "count": 0,
       "level": 0
+    },
+    {
+      "date": "2026-08-20",
+      "count": 1,
+      "level": 1
     }
   ],
   "recentCommits": [
+    {
+      "projectId": "lander-data",
+      "projectName": "Lander data platform",
+      "sha": "9a58baa",
+      "timestamp": "2026-08-20T04:32:36Z",
+      "message": "Remove obsolete backend context snapshot"
+    },
     {
       "projectId": "lander-data",
       "projectName": "Lander data platform",
@@ -2078,13 +2085,6 @@
       "sha": "cd286df",
       "timestamp": "2026-08-09T19:40:45Z",
       "message": "test: cover paced Workday budget"
-    },
-    {
-      "projectId": "lander-data",
-      "projectName": "Lander data platform",
-      "sha": "76e4709",
-      "timestamp": "2026-08-09T19:36:29Z",
-      "message": "perf: unblock priority source ingestion"
     }
   ]
 }
