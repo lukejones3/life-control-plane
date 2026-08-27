@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-26T10:54:45.862Z",
+  "generatedAt": "2026-08-27T20:35:19.229Z",
   "owner": "lukejones3",
   "totals": {
-    "commits7d": 3,
+    "commits7d": 2,
     "commits30d": 148,
     "activeProjects": 4
   },
@@ -14,7 +14,7 @@
       "repo": "job-market-analytics",
       "repository": "https://github.com/lukejones3/job-market-analytics",
       "defaultBranch": "main",
-      "commits7d": 3,
+      "commits7d": 2,
       "commits30d": 130,
       "lastCommitAt": "2026-08-20T22:01:07Z",
       "lastCommitMessage": "Add resume match conversion window"
@@ -54,11 +54,6 @@
     }
   ],
   "contributionDays": [
-    {
-      "date": "2025-08-28",
-      "count": 0,
-      "level": 0
-    },
     {
       "date": "2025-08-29",
       "count": 0,
@@ -1871,6 +1866,11 @@
     },
     {
       "date": "2026-08-26",
+      "count": 0,
+      "level": 0
+    },
+    {
+      "date": "2026-08-27",
       "count": 0,
       "level": 0
     }
