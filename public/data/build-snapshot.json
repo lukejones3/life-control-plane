@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-05T13:28:17.742Z",
+  "generatedAt": "2026-09-06T13:43:06.489Z",
   "owner": "lukejones3",
   "totals": {
     "commits7d": 0,
-    "commits30d": 92,
-    "activeProjects": 4
+    "commits30d": 58,
+    "activeProjects": 3
   },
   "projects": [
     {
@@ -15,7 +15,7 @@
       "repository": "https://github.com/lukejones3/job-market-analytics",
       "defaultBranch": "main",
       "commits7d": 0,
-      "commits30d": 84,
+      "commits30d": 55,
       "lastCommitAt": "2026-08-20T22:01:07Z",
       "lastCommitMessage": "Add resume match conversion window"
     },
@@ -26,7 +26,7 @@
       "repository": "https://github.com/lukejones3/life-control-plane",
       "defaultBranch": "main",
       "commits7d": 0,
-      "commits30d": 3,
+      "commits30d": 2,
       "lastCommitAt": "2026-08-09T20:51:55Z",
       "lastCommitMessage": "fix: publish scheduled build snapshot"
     },
@@ -48,17 +48,12 @@
       "repository": "https://github.com/lukejones3/luke-jones-portfolio",
       "defaultBranch": "main",
       "commits7d": 0,
-      "commits30d": 4,
+      "commits30d": 0,
       "lastCommitAt": "2026-08-07T07:37:54Z",
       "lastCommitMessage": "refine portfolio copy for direct professional tone"
     }
   ],
   "contributionDays": [
-    {
-      "date": "2025-09-07",
-      "count": 0,
-      "level": 0
-    },
     {
       "date": "2025-09-08",
       "count": 0,
@@ -1871,6 +1866,11 @@
     },
     {
       "date": "2026-09-05",
+      "count": 0,
+      "level": 0
+    },
+    {
+      "date": "2026-09-06",
       "count": 0,
       "level": 0
     }
