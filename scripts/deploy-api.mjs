@@ -8,6 +8,10 @@ const token = process.env.VERCEL_TOKEN;
 const projectName = process.env.VERCEL_PROJECT_NAME || "life-control-plane";
 const teamId = process.env.VERCEL_TEAM_ID;
 const deploymentTarget = process.env.VERCEL_DEPLOYMENT_TARGET || "production";
+const stableAliases = (process.env.VERCEL_DEPLOYMENT_ALIASES || "")
+  .split(",")
+  .map(value => value.trim())
+  .filter(Boolean);
 
 if (!new Set(["production", "preview"]).has(deploymentTarget)) {
   throw new Error("VERCEL_DEPLOYMENT_TARGET must be production or preview.");
@@ -95,4 +99,17 @@ if (current.readyState !== "READY") {
   throw new Error(`Deployment did not become ready (state: ${current.readyState || "unknown"}).`);
 }
 
+for (const alias of stableAliases) {
+  process.stdout.write(`Pointing ${alias} at the new deployment... `);
+  await api(`/v2/deployments/${deployment.id}/aliases`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ alias }),
+  });
+  console.log("done");
+}
+
 console.log(`\n${deploymentTarget === "preview" ? "Private candidate URL" : "Phone URL"}: https://${current.alias?.[0] || current.url}`);
+if (stableAliases.length) {
+  console.log(`Stable URL${stableAliases.length === 1 ? "" : "s"}: ${stableAliases.map(alias => `https://${alias}`).join(", ")}`);
+}

@@ -41,14 +41,19 @@ and offline use require a production build served over HTTPS (except on
 `localhost`). On iPhone, use **Share → Add to Home Screen**; on Android, use the
 browser's **Install app** action.
 
-The first visit asks the user to create a local name and passcode. The passcode
-is salted and hashed with Web Crypto and stored only in that browser profile;
-it is not a server account and cannot be recovered or used from another device.
+The public demo asks the user to create a local name and passcode. That login is
+deliberately device-local and protects only demo state.
 
 The owner's private hosted build uses a preview deployment protected by Vercel
-Authentication and is built with `VITE_PLATFORM_AUTH=true`. Authentication then
-happens at Vercel's edge before application assets are served. The device-local
-passcode is disabled in that build because it is not a network access boundary.
+Authentication. `npm run deploy:private` always builds with
+`VITE_PLATFORM_AUTH=true`; authentication happens at Vercel's edge before any
+application asset is served, and the same Vercel account works on desktop and
+mobile. The device-local passcode is disabled in that build because it is not a
+network access boundary. Authenticated responses are not service-worker cached,
+so an expired session cannot be replaced by a cached app or login page.
+After the preview is ready, the command also repoints the two stable protected
+Vercel aliases. Existing desktop bookmarks and the installed phone app therefore
+receive the new bundle instead of remaining attached to an older preview.
 
 ## Publish through an API for phone use
 
@@ -78,6 +83,41 @@ statuses, drafts, contact dates, follow-ups, and candidate project links stay in
 the device's local storage. The app never sends a message automatically. An
 explicit email/link action opens the user's own client, and **Mark sent** only
 updates the local campaign ledger.
+
+## Vehicle product architecture
+
+Car Plane uses a typed, source-aware vehicle model. Every reading carries its
+source and observation time; the Vehicle Sync score measures coverage,
+freshness, integrity, action closure, and connector health. The public demo uses
+synthetic records and a browser-local manual-reading fallback.
+
+Set `VITE_VEHICLE_API_URL` for a private or product build backed by the versioned
+vehicle API described in `docs/VEHICLE_PRODUCT_AUDIT.md`. The intended connector
+order is connected-vehicle data where supported, email/document evidence for
+obligations and service, NHTSA for VIN identity, and a fast manual snapshot for
+dashboard-only readings.
+
+## Private Content and Build surfaces
+
+The Build plane combines a local repository snapshot with a daily GitHub
+activity refresh. Public repositories update through a scheduled GitHub Action;
+the encrypted private connector adds private repositories after it is unlocked.
+Local source scale and worktree motion remain local by design.
+
+The Content plane combines a private account snapshot, a persistent research
+vault, evidence-backed format observations, YouTube owner OAuth, TikTok Login
+Kit/Display API, and a dated manual video ledger. Provider credentials and
+refresh tokens remain encrypted on the private server. Run
+`npm run snapshot` before local inspection; `npm run build` and private deploys
+do this automatically. The generated snapshot is intentionally ignored by Git,
+so personal account data and private project state never enter the public source
+repository. Connector boundaries are documented in
+`docs/CONTENT_CONNECTOR_ARCHITECTURE.md`.
+
+To connect an existing Google desktop OAuth client to the private YouTube
+analytics service, run `npm run connect:youtube -- /path/to/client_secret.json`.
+This is a one-time, read-only bootstrap; subsequent refreshes run on the private
+server.
 
 ## Privacy architecture
 

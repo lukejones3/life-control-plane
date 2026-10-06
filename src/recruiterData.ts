@@ -1,11 +1,18 @@
 export type RecruiterSegment = "Seattle / PNW" | "National remote" | "Contract / C2H";
-export type RecruiterStatus = "researched" | "ready" | "approved" | "contacted" | "replied" | "call booked" | "submitted" | "inactive";
+import { recruiterExpansionSeeds } from "./recruiterExpansion";
+import { recruiterReachabilityByUrl } from "./recruiterReachability";
+
+export type RecruiterStatus = "researched" | "ready" | "approved" | "contacted" | "replied" | "call booked" | "submitted" | "interview" | "offer" | "inactive";
 
 export type Recruiter = {
   id: number; name: string; firm: string; title: string; segment: RecruiterSegment;
   focus: string; evidence: string; evidenceUrl: string; linkedin: string;
   email?: string; contact: string; opening: string; openingUrl: string;
   match: string; priority: number; channel: "LinkedIn" | "Email"; resume: "Data / BI" | "Data engineering" | "Applied AI";
+  sourceType: "active opening" | "specialist desk" | "public profile";
+  checkedAt: string; roleFamilies: string[]; connectionHook: string;
+  followers?: number; reachabilityCheckedAt?: string; reachabilitySource?: "public-profile" | "search-snapshot";
+  initialDraft: string; connectionDraft: string; followUpDraft: string;
 };
 
 const firmContacts: Record<string,string> = {
@@ -15,6 +22,10 @@ const firmContacts: Record<string,string> = {
   "Randstad Digital":"https://www.randstadusa.com/contact-us/", "Kforce":"https://www.kforce.com/contact-us/",
   "Vaco by Highspring":"https://www.vaco.com/contact/", Experis:"https://www.experis.com/en/contact-us",
   "The Judge Group":"https://www.judge.com/contact-us/", "Quadrant Technologies":"https://quadranttechnologies.com/contact-us/",
+  "Robert Half":"https://www.roberthalf.com/us/en/contact-us", CyberCoders:"https://www.cybercoders.com/contact",
+  Harnham:"https://www.harnham.com/contact-us/", "Burtch Works":"https://www.burtchworks.com/contact/",
+  "Eliassen Group":"https://www.eliassen.com/contact-us", "Addison Group":"https://addisongroup.com/contact/",
+  Yoh:"https://www.yoh.com/contact-us", Optomi:"https://optomi.com/contact-us/",
 };
 const jobs: Record<string,string> = {
   "TEKsystems":"https://www.teksystems.com/en/careers", "Insight Global":"https://jobs.insightglobal.com/",
@@ -23,6 +34,10 @@ const jobs: Record<string,string> = {
   "Randstad Digital":"https://www.randstadusa.com/jobs/", "Kforce":"https://www.kforce.com/find-work/search-jobs/",
   "Vaco by Highspring":"https://jobs.vaco.com/", Experis:"https://www.experis.com/en/search-jobs",
   "The Judge Group":"https://www.judge.com/jobs/", "Quadrant Technologies":"https://quadranttechnologies.com/careers/",
+  "Robert Half":"https://www.roberthalf.com/us/en/jobs", CyberCoders:"https://www.cybercoders.com/jobs/",
+  Harnham:"https://www.harnham.com/jobs/", "Burtch Works":"https://www.burtchworks.com/jobs/",
+  "Eliassen Group":"https://careers.eliassen.com/", "Addison Group":"https://addisongroup.com/jobs/",
+  Yoh:"https://jobs.yoh.com/", Optomi:"https://optomi.com/job-search/",
 };
 
 type Seed = [string,string,string,RecruiterSegment,string,string,string,number,Recruiter["resume"],string?];
@@ -48,7 +63,7 @@ const seeds: Seed[] = [
  ["Nick Lehner","Motion Recruitment","Technical Recruiter","Seattle / PNW","Current Motion profile with PNW technical placement history","https://www.linkedin.com/in/nick-lehner-33430298","PNW technical desk and implementation/automation breadth",76,"Data engineering"],
  ["Jeff Sawhill","TEKsystems","Data-focused Technical Recruiter","Seattle / PNW","Public recruiter activity identifies a TEKsystems data-engineering and cloud specialty","https://www.linkedin.com/search/results/people/?keywords=Jeff%20Sawhill%20TEKsystems","Data engineering specialty plus current TEKsystems contractor route",84,"Data engineering","jsawhill|teksystems.com"],
 
- ["Taylor Mazzie","Motion Recruitment","Senior Talent Recruiter","National remote","Returned to Motion; currently recruiting a full-time remote Senior Data Engineer","https://www.linkedin.com/in/taylorkmazzie","Remote data engineering plus shipped pipelines and PostgreSQL",97,"Data engineering"],
+ ["Taylor Mazzie","Motion Recruitment","Senior Talent Recruiter","National remote","Returned to Motion; currently recruiting a full-time remote Senior Data Engineer","https://www.linkedin.com/in/taylorkmazzie","Remote data engineering plus shipped pipelines and PostgreSQL",97,"Data engineering","taylor.mazzie|motionrecruitment.com"],
  ["Colleen Bott","Randstad Digital","Principal Recruiter","National remote","Posted 100% remote data/DevOps W2 consulting roles and returned hands-on in 2026","https://www.linkedin.com/in/colleen-bott-18450548","Remote consulting desk and production infrastructure experience",95,"Data engineering"],
  ["Paddy Beauchamp","Motion Recruitment","Team Manager","National remote","Posted active Python data engineering and applied-AI roles within months","https://www.linkedin.com/in/paddy-beauchamp-60448985","Python/data/AI systems align, though many openings are NYC hybrid",90,"Applied AI"],
  ["Braylee C.","Vaco by Highspring","IT Recruiter","National remote","Recent direct-hire Power BI/Data Engineer posts using SQL and Python","https://www.linkedin.com/in/brayleeschlumpf","Exact BI + pipeline builder positioning",89,"Data / BI"],
@@ -72,7 +87,43 @@ const seeds: Seed[] = [
 ];
 
 const decodeEmail = (value?: string) => value?.replace("|","@");
-export const recruiters: Recruiter[] = seeds.map((s,id) => {
+const normalizedLinkedIn=(value:string)=>value.replace(/^https:\/\/(?:[a-z]{2}\.)?linkedin\.com/,"https://www.linkedin.com").replace(/\/$/,"");
+const reachability=(linkedin:string)=>recruiterReachabilityByUrl[normalizedLinkedIn(linkedin)];
+const roleFamilies=(resume:Recruiter["resume"])=>resume === "Applied AI" ? ["Applied AI","AI engineering","Technical product"] : resume === "Data engineering" ? ["Data engineering","Analytics engineering","Automation"] : ["Data analytics","BI","Technical analysis"];
+const sourceType=(evidence:string):Recruiter["sourceType"]=>/posted|opening|currently recruiting|currently sharing|active .*role/i.test(evidence)?"active opening":/specializ|focus|desk|data engineering|analytics|data science|AI\/ML/i.test(evidence)?"specialist desk":"public profile";
+const shortHook=(focus:string)=>focus.replace(/,.*$/,"").slice(0,58);
+const outreachLane=(resume:Recruiter["resume"])=>resume==="Applied AI"?"data and applied AI":resume==="Data engineering"?"data engineering":"data and analytics";
+const connectionNote=(first:string,firm:string,lane:string)=>{
+  const personalized=`Hi ${first} — I work in ${lane} and am looking for remote or Seattle roles. I saw your recruiting work at ${firm}. Open to connecting?`;
+  return personalized.length<=200?personalized:`Hi ${first} — I work in ${lane} and am looking for remote or Seattle roles. Open to connecting?`;
+};
+const drafts=(r:Pick<Recruiter,"name"|"firm"|"focus"|"resume">)=>{
+  const first=r.name.split(" ")[0];
+  const lane=outreachLane(r.resume);
+  return {
+    initialDraft:`Hi ${first} — I work in ${lane} and am looking for remote or Seattle roles. I build production SQL/Python systems at AMC, and I also built Lander and Wyloc. I saw you recruit in ${shortHook(r.focus).toLowerCase()} at ${r.firm}, so I figured I’d reach out. If you’re working on anything relevant, I’m happy to send my résumé.`,
+    connectionDraft:connectionNote(first,r.firm,lane),
+    followUpDraft:`Hi ${first} — just following up on my note. I’m still looking for remote or Seattle ${lane} work. If anything relevant is open, I’m happy to send my résumé.`
+  };
+};
+
+const baseRecruiters: Recruiter[] = seeds.map((s,id) => {
   const [name,firm,title,segment,evidence,linkedin,match,priority,resume,email] = s;
-  return {id:id+1,name,firm,title,segment,focus: resume === "Applied AI" ? "Applied AI, data and technical product" : resume === "Data engineering" ? "Data engineering, automation, SQL/Python" : "Analytics, BI and technical business analysis",evidence:`Verified from public profile/search on 2026-08-03: ${evidence}.`,evidenceUrl:linkedin,linkedin,email:decodeEmail(email),contact:firmContacts[firm] || linkedin,opening:evidence,openingUrl:jobs[firm] || linkedin,match,priority,channel:email?"Email":"LinkedIn",resume};
+  const focus=resume === "Applied AI" ? "Applied AI, data and technical product" : resume === "Data engineering" ? "Data engineering, automation, SQL/Python" : "Analytics, BI and technical business analysis";
+  const reach=reachability(linkedin);
+  const record={id:id+1,name,firm,title,segment,focus,evidence:`Verified from public profile/search on 2026-08-03: ${evidence}.`,evidenceUrl:linkedin,linkedin,email:decodeEmail(email),contact:firmContacts[firm] || linkedin,opening:evidence,openingUrl:jobs[firm] || linkedin,match,priority,channel:(email?"Email":"LinkedIn") as Recruiter["channel"],resume,sourceType:sourceType(evidence),checkedAt:"2026-08-03",roleFamilies:roleFamilies(resume),connectionHook:shortHook(focus),followers:reach?.followers,reachabilityCheckedAt:reach?.observedAt,reachabilitySource:reach?.source};
+  return {...record,...drafts(record)};
 });
+
+const expandedRecruiters: Recruiter[] = recruiterExpansionSeeds.map((seed,index)=>{
+  const sourceEmail="email" in seed?seed.email:undefined;
+  const reach=reachability(seed.linkedin);
+  const record={...seed,id:baseRecruiters.length+index+1,email:decodeEmail(sourceEmail),contact:seed.contact||firmContacts[seed.firm]||seed.linkedin,openingUrl:seed.openingUrl||jobs[seed.firm]||seed.linkedin,channel:(sourceEmail?"Email":"LinkedIn") as Recruiter["channel"],checkedAt:"2026-08-09",roleFamilies:roleFamilies(seed.resume),connectionHook:shortHook(seed.focus),followers:reach?.followers,reachabilityCheckedAt:reach?.observedAt,reachabilitySource:reach?.source};
+  return {...record,...drafts(record)};
+});
+
+export const recruiters: Recruiter[] = [...baseRecruiters,...expandedRecruiters];
+
+if(recruiters.some(recruiter=>recruiter.connectionDraft.length>200)){
+  throw new Error("Recruiter connection notes must stay within LinkedIn's 200-character limit.");
+}
