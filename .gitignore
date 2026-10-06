@@ -16,4 +16,3 @@ private/
 credentials*.json
 token*.json
 .vercel
-src/generated/privateSnapshot.ts

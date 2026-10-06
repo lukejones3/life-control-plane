@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import {
-  Activity, ArrowUpRight, BriefcaseBusiness, Car, Check,
+  Activity, ArrowUpRight, BriefcaseBusiness, Building2, Car, Check,
   ChevronRight, CircleDollarSign, Compass, Dumbbell, Film, Gauge,
   HeartHandshake, Home, ListChecks, Music2, Plane, Plus, RefreshCw,
   Download, LockKeyhole, Search, Sparkles, WalletCards, Wrench,
@@ -9,13 +9,6 @@ import { demoData } from "./demoData";
 import { getCredential, LocalCredential } from "./auth";
 import { LockScreen } from "./LockScreen";
 import { RecruiterSprint } from "./RecruiterSprint";
-import { MovePlanner } from "./MovePlanner";
-import { BuildStudio } from "./BuildStudio";
-import { ContentStudio } from "./ContentStudio";
-import {
-  formatObservedAt, formatVehicleDate, ManualVehicleUpdate,
-  vehicleRepository, VehicleDashboard, VehicleField,
-} from "./vehicle";
 
 interface InstallPromptEvent extends Event {
   prompt: () => Promise<void>;
@@ -73,7 +66,7 @@ export default function App() {
   const [credential,setCredential] = useState<LocalCredential|null>(()=>platformAuth ? {username:"Luke",salt:"",hash:""} : getCredential());
   const [unlocked,setUnlocked] = useState(()=>platformAuth || sessionStorage.getItem("lcp-unlocked")==="yes");
   const [installPrompt,setInstallPrompt] = useState<InstallPromptEvent|null>(null);
-  const [view,setView] = useState<View>(()=>(new URLSearchParams(window.location.search).get("view") as View)||(localStorage.getItem("demo-view") as View)||"home");
+  const [view,setView] = useState<View>(()=>(localStorage.getItem("demo-view") as View)||"home");
   const [tasks,setTasks] = useState<Task[]>(()=>JSON.parse(localStorage.getItem("demo-tasks")||"null") as Task[]||defaultTasks);
   const [note,setNote] = useState("");
   const [savedNotes,setSavedNotes] = useState<string[]>(()=>JSON.parse(localStorage.getItem("demo-notes")||"[]"));
@@ -154,7 +147,9 @@ function MoneyView() {
 }
 
 function MoveView() {
-  return <MovePlanner/>;
+  return <div className="page"><div className="move-hero"><div><span>Target window</span><strong>October</strong><small>84 days · destination demo</small></div><div className="move-line"><i/><i/><i/><i/></div><div><b>Offer</b><b>Housing</b><b>Departure</b><b>Arrival</b></div></div>
+    <div className="grid two"><Card><Head eyebrow="Critical path" title="What must become true"/>{["Secure location-compatible work","Build move-now cash threshold","Choose three neighborhoods","Prepare documents and departure sequence"].map((x,i)=><div className="step" key={x}><span>{i+1}</span><p><b>{x}</b><small>{i<1?"Active now":"Waiting on prior dependency"}</small></p><Badge tone={i===0?"applied":""}>{i===0?"moving":"queued"}</Badge></div>)}</Card><Card><Head eyebrow="Neighborhood board" title="Shortlist by lived fit"/>{[["North Loop","92","Transit · music · walkability"],["Cedar District","87","Value · community · light rail"],["Harbor Hill","81","Quiet · water · central access"]].map(x=><div className="hood" key={x[0]}><strong>{x[1]}</strong><p><b>{x[0]}</b><span>{x[2]}</span></p><button>Save</button></div>)}</Card></div>
+  </div>;
 }
 
 function PeopleView() {
@@ -171,11 +166,15 @@ function MusicView({note,setNote,saved,setSaved}:{note:string;setNote:(x:string)
 }
 
 function BuildView() {
-  return <BuildStudio/>;
+  return <div className="page"><div className="build-banner"><div><span>This week</span><strong>14 commits</strong><small>Across three active systems</small></div><div className="heat">{Array.from({length:28},(_,i)=><i key={i} style={{opacity:.16+((i*7)%10)/12}}/>)}</div></div>
+    <div className="project-grid">{demoData.projects.map(p=><Card key={p.name}><div className="project-art" style={{"--p":p.color} as React.CSSProperties}><Building2/></div><Badge>{p.stage}</Badge><h3>{p.name}</h3><p>{p.next}</p><footer><span>{p.commits} commits this week</span><button>Repository <ArrowUpRight/></button></footer></Card>)}</div>
+  </div>;
 }
 
 function ContentView() {
-  return <ContentStudio/>;
+  return <div className="page"><div className="content-hero"><div><span>Audience</span><strong>42.8K</strong><small>+3.2% this month</small></div><div><span>Published</span><strong>18</strong><small>Across short and long form</small></div><button><Plus/>New idea</button></div>
+    <div className="grid two"><Card><Head eyebrow="Idea bank" title="The work waiting to be made"/>{["Why old systems survive","Building a searchable personal archive","What AI changes about learning","The hidden architecture of ordinary work"].map((x,i)=><div className="idea" key={x}><span>{String(i+1).padStart(2,"0")}</span><p><b>{x}</b><small>{i%2?"Essay / video":"Long-form video"}</small></p><button>Develop</button></div>)}</Card><Card><Head eyebrow="Pipeline" title="From thought to artifact"/>{["Capture","Research","Outline","Record","Edit","Publish"].map((x,i)=><div className="pipeline" key={x}><i className={i<2?"done":""}/><b>{x}</b><span>{[12,4,2,1,0,18][i]}</span></div>)}</Card></div>
+  </div>;
 }
 
 function AdminView({tasks,setTasks}:{tasks:Task[];setTasks:React.Dispatch<React.SetStateAction<Task[]>>}) {
@@ -187,43 +186,10 @@ function AdminView({tasks,setTasks}:{tasks:Task[];setTasks:React.Dispatch<React.
 }
 
 function CarView() {
-  const [dashboard,setDashboard] = useState<VehicleDashboard|null>(null);
-  const [busy,setBusy] = useState(false);
-  const [error,setError] = useState("");
-  const load=async()=>{try{setError("");setDashboard(await vehicleRepository.getDashboard())}catch(problem){setError(problem instanceof Error?problem.message:"Vehicle data could not be loaded")}};
-  useEffect(()=>{void load()},[]);
-  const sync=async()=>{setBusy(true);try{setError("");setDashboard(await vehicleRepository.sync())}catch(problem){setError(problem instanceof Error?problem.message:"Vehicle sync failed")}finally{setBusy(false)}};
-  const save=async(event:React.FormEvent<HTMLFormElement>)=>{
-    event.preventDefault();setBusy(true);setError("");
-    const form=new FormData(event.currentTarget);
-    const number=(key:string)=>{const value=String(form.get(key)||"").trim();return value===""?null:Number(value)};
-    const update:ManualVehicleUpdate={mileage:number("mileage"),rangeMiles:number("rangeMiles"),fuelPercent:number("fuelPercent"),oilLifePercent:number("oilLifePercent"),checkEngine:form.get("checkEngine")==="on"};
-    try{setDashboard(await vehicleRepository.saveManualSnapshot(update))}catch(problem){setError(problem instanceof Error?problem.message:"Vehicle reading could not be saved")}finally{setBusy(false)}
-  };
-  if(!dashboard)return <div className="page"><Card className="vehicle-loading"><RefreshCw className="spin"/><p>{error||"Loading the Car Plane…"}</p>{error&&<button onClick={()=>void load()}>Try again</button>}</Card></div>;
-  const name=`${dashboard.identity.year} ${dashboard.identity.make} ${dashboard.identity.model}`;
-  const lastServiceMileage=dashboard.events.find(item=>item.kind==="service"&&item.mileage!=null)?.mileage??null;
-  const oilRunway=dashboard.mileage.value==null||lastServiceMileage==null?null:lastServiceMileage+5000-dashboard.mileage.value;
-  const registrationDays=dashboard.registrationDue.value?Math.ceil((new Date(`${dashboard.registrationDue.value}T12:00:00`).getTime()-Date.now())/86400000):null;
-  return <div className="page car-plane">
-    <div className="car-hero"><div className="car-shape"><Car/></div><div><span>{vehicleRepository.mode==="demo"?"Product demo · source-aware vehicle":"Connected vehicle"}</span><h2>{name}</h2><p>{dashboard.mileage.value?.toLocaleString()||"Mileage unavailable"} miles · {dashboard.mileage.sourceLabel} · {formatObservedAt(dashboard.mileage.observedAt)}</p></div><div className="vehicle-sync"><span>Vehicle Sync</span><strong>{dashboard.sync.score}</strong><small>{dashboard.sync.issues[0]||"All expected sources are current"}</small><button onClick={()=>void sync()} disabled={busy}><RefreshCw className={busy?"spin":""}/>{busy?"Syncing":"Refresh"}</button></div></div>
-    {error&&<div className="vehicle-error">{error}</div>}
-    <div className="metric-row"><Metric value={dashboard.rangeMiles.value==null?"—":`${dashboard.rangeMiles.value} mi`} label="Estimated range"/><Metric value={oilRunway==null?"—":`${Math.max(0,oilRunway).toLocaleString()} mi`} label="Until oil service"/><Metric value={dashboard.estimatedValue.value==null?"—":`$${Math.round(dashboard.estimatedValue.value/100)/10}K`} label="Estimated value"/><Metric value={registrationDays==null?"—":registrationDays<0?`${Math.abs(registrationDays)}d late`:`${registrationDays} days`} label="Registration due"/></div>
-    <div className="grid two">
-      <Card><Head eyebrow="Vehicle health" title="Current readings with evidence"/><VehicleReading label="Odometer" field={dashboard.mileage} value={dashboard.mileage.value==null?"Not available":`${dashboard.mileage.value.toLocaleString()} mi`}/><VehicleReading label="Fuel remaining" field={dashboard.fuelPercent} value={dashboard.fuelPercent.value==null?"Not available":`${dashboard.fuelPercent.value}%`}/><VehicleReading label="Oil life" field={dashboard.oilLifePercent} value={dashboard.oilLifePercent.value==null?"Not available":`${dashboard.oilLifePercent.value}%`}/><VehicleReading label="Check-engine" field={dashboard.checkEngine} value={dashboard.checkEngine.value?"Needs attention":"No alert reported"}/></Card>
-      <Card><Head eyebrow="Coverage" title="Insurance and registration"/><VehicleReading label="Insurance" field={dashboard.insurance.provider} value={dashboard.insurance.provider.value||"Not connected"}/><VehicleReading label="Premium" field={dashboard.insurance.premium} value={dashboard.insurance.premium.value==null?"Not available":`$${dashboard.insurance.premium.value.toFixed(2)} / month`}/><VehicleReading label="Policy renewal" field={dashboard.insurance.renewalDue} value={formatVehicleDate(dashboard.insurance.renewalDue.value)}/><VehicleReading label="Registration" field={dashboard.registrationDue} value={formatVehicleDate(dashboard.registrationDue.value)}/></Card>
-    </div>
-    <Card><Head eyebrow="Data connections" title="Easy when supported, honest when manual"/><div className="vehicle-connectors">{dashboard.connectors.map(connector=><div className={`vehicle-connector ${connector.state}`} key={connector.id}><span>{connector.label.slice(0,2).toUpperCase()}</span><p><b>{connector.label}</b><small>{connector.detail}</small></p><div><Badge tone={connector.state==="connected"?"applied":""}>{connector.state}</Badge><small>{formatObservedAt(connector.lastSyncedAt)}</small></div></div>)}</div></Card>
-    <div className="grid two">
-      <Card><Head eyebrow="Maintenance" title="Evidence-backed timeline"/>{dashboard.events.length?dashboard.events.map(item=><div className="service" key={item.id}><i/><p><b>{item.title}</b><span>{formatVehicleDate(item.occurredAt)}{item.mileage==null?"":` · ${item.mileage.toLocaleString()} mi`}</span></p><Badge>{item.sourceLabel}</Badge></div>):<p className="vehicle-empty">No service evidence has been added yet.</p>}</Card>
-      <Card><Head eyebrow="Sync calculation" title="Why this score moves"/><div className="vehicle-score-grid">{[["Coverage",dashboard.sync.coverage],["Freshness",dashboard.sync.freshness],["Integrity",dashboard.sync.integrity],["Action closure",dashboard.sync.actionClosure],["Automation",dashboard.sync.automationHealth]].map(([label,value])=><div key={String(label)}><span>{label}</span><b>{value}</b><i><em style={{width:`${value}%`}}/></i></div>)}</div>{dashboard.sync.issues.length>0&&<div className="vehicle-remediation"><b>Next useful repair</b><span>{dashboard.sync.issues[0]}</span></div>}</Card>
-    </div>
-    <details className="vehicle-manual"><summary><span><b>Update dashboard readings</b><small>For vehicles or fields without a supported connection</small></span><ChevronRight/></summary><form onSubmit={save}><label>Odometer<input name="mileage" type="number" min="0" defaultValue={dashboard.mileage.value??""}/></label><label>Range remaining<input name="rangeMiles" type="number" min="0" defaultValue={dashboard.rangeMiles.value??""}/></label><label>Fuel remaining %<input name="fuelPercent" type="number" min="0" max="100" defaultValue={dashboard.fuelPercent.value??""}/></label><label>Oil life %<input name="oilLifePercent" type="number" min="0" max="100" defaultValue={dashboard.oilLifePercent.value??""}/></label><label className="vehicle-check"><input name="checkEngine" type="checkbox" defaultChecked={dashboard.checkEngine.value||false}/> Check-engine light is on</label><button disabled={busy}>{busy?"Saving…":"Save snapshot"}</button></form></details>
+  return <div className="page"><div className="car-hero"><div className="car-shape"><Car/></div><div><span>Demo vehicle</span><h2>2021 Compact SUV</h2><p>41,280 miles · last synced today</p></div><Badge tone="applied">All systems clear</Badge></div>
+    <div className="metric-row"><Metric value="286 mi" label="Estimated range"/><Metric value="3,720 mi" label="Until oil service"/><Metric value="$18.4K" label="Estimated value"/><Metric value="12 days" label="Registration due"/></div>
+    <div className="grid two"><Card><Head eyebrow="Maintenance" title="Known service timeline"/>{[["Oil and filter","38,104 mi","Complete"],["Tire rotation","38,104 mi","Complete"],["Registration renewal","Aug 10","Upcoming"],["Annual inspection","Oct 22","Scheduled"]].map(x=><div className="service" key={x[0]}><i/><p><b>{x[0]}</b><span>{x[1]}</span></p><Badge>{x[2]}</Badge></div>)}</Card><Card><Head eyebrow="Coverage" title="Insurance and documents"/><div className="policy"><span>Demo Mutual</span><strong>$126 / month</strong><small>Paid through August · policy documents linked locally</small><button>Open provider portal <ArrowUpRight/></button></div></Card></div>
   </div>;
-}
-
-function VehicleReading<T>({label,field,value}:{label:string;field:VehicleField<T>;value:string}) {
-  return <div className="vehicle-reading"><div><span>{label}</span><strong>{value}</strong></div><small>{field.sourceLabel}<i/> {formatObservedAt(field.observedAt)}</small></div>;
 }
 
 function Metric({value,label}:{value:string;label:string}) { return <Card className="metric"><strong>{value}</strong><span>{label}</span></Card> }
