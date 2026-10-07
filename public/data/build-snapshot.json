@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-06T16:51:03.990Z",
+  "generatedAt": "2026-10-07T17:27:39.481Z",
   "owner": "lukejones3",
   "totals": {
-    "commits7d": 0,
-    "commits30d": 0,
-    "activeProjects": 0
+    "commits7d": 2,
+    "commits30d": 2,
+    "activeProjects": 1
   },
   "projects": [
     {
@@ -25,10 +25,10 @@
       "repo": "life-control-plane",
       "repository": "https://github.com/lukejones3/life-control-plane",
       "defaultBranch": "main",
-      "commits7d": 0,
-      "commits30d": 0,
-      "lastCommitAt": "2026-08-09T20:51:55Z",
-      "lastCommitMessage": "fix: publish scheduled build snapshot"
+      "commits7d": 2,
+      "commits30d": 2,
+      "lastCommitAt": "2026-10-06T23:28:47Z",
+      "lastCommitMessage": "Revert \"feat: expand the Life Control Plane\""
     },
     {
       "id": "life-topology-lab",
@@ -54,11 +54,6 @@
     }
   ],
   "contributionDays": [
-    {
-      "date": "2025-10-08",
-      "count": 0,
-      "level": 0
-    },
     {
       "date": "2025-10-09",
       "count": 0,
@@ -1871,11 +1866,30 @@
     },
     {
       "date": "2026-10-06",
+      "count": 2,
+      "level": 2
+    },
+    {
+      "date": "2026-10-07",
       "count": 0,
       "level": 0
     }
   ],
   "recentCommits": [
+    {
+      "projectId": "life-control-plane",
+      "projectName": "Life Control Plane",
+      "sha": "180d393",
+      "timestamp": "2026-10-06T23:28:47Z",
+      "message": "Revert \"feat: expand the Life Control Plane\""
+    },
+    {
+      "projectId": "life-control-plane",
+      "projectName": "Life Control Plane",
+      "sha": "8d2b5eb",
+      "timestamp": "2026-10-06T23:27:54Z",
+      "message": "feat: expand the Life Control Plane"
+    },
     {
       "projectId": "lander-data",
       "projectName": "Lander data platform",
@@ -2071,20 +2085,6 @@
       "sha": "b260e74",
       "timestamp": "2026-08-10T02:58:40Z",
       "message": "fix: checkpoint Workday ingestion batches"
-    },
-    {
-      "projectId": "life-control-plane",
-      "projectName": "Life Control Plane",
-      "sha": "d0811b6",
-      "timestamp": "2026-08-09T20:51:55Z",
-      "message": "fix: publish scheduled build snapshot"
-    },
-    {
-      "projectId": "life-control-plane",
-      "projectName": "Life Control Plane",
-      "sha": "7e73c4a",
-      "timestamp": "2026-08-09T20:47:16Z",
-      "message": "feat: refresh public build activity daily"
     }
   ]
 }
