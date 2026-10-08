@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-07T17:27:39.481Z",
+  "generatedAt": "2026-10-08T17:25:52.429Z",
   "owner": "lukejones3",
   "totals": {
-    "commits7d": 2,
-    "commits30d": 2,
-    "activeProjects": 1
+    "commits7d": 12,
+    "commits30d": 12,
+    "activeProjects": 2
   },
   "projects": [
     {
@@ -14,10 +14,10 @@
       "repo": "job-market-analytics",
       "repository": "https://github.com/lukejones3/job-market-analytics",
       "defaultBranch": "main",
-      "commits7d": 0,
-      "commits30d": 0,
-      "lastCommitAt": "2026-08-20T22:01:07Z",
-      "lastCommitMessage": "Add resume match conversion window"
+      "commits7d": 10,
+      "commits30d": 10,
+      "lastCommitAt": "2026-10-06T18:09:50Z",
+      "lastCommitMessage": "Career Host: Phenom, Avature, and SuccessFactors api_recipe crawlers"
     },
     {
       "id": "life-control-plane",
@@ -54,11 +54,6 @@
     }
   ],
   "contributionDays": [
-    {
-      "date": "2025-10-09",
-      "count": 0,
-      "level": 0
-    },
     {
       "date": "2025-10-10",
       "count": 0,
@@ -1866,11 +1861,16 @@
     },
     {
       "date": "2026-10-06",
-      "count": 2,
-      "level": 2
+      "count": 12,
+      "level": 4
     },
     {
       "date": "2026-10-07",
+      "count": 0,
+      "level": 0
+    },
+    {
+      "date": "2026-10-08",
       "count": 0,
       "level": 0
     }
@@ -1889,6 +1889,76 @@
       "sha": "8d2b5eb",
       "timestamp": "2026-10-06T23:27:54Z",
       "message": "feat: expand the Life Control Plane"
+    },
+    {
+      "projectId": "lander-data",
+      "projectName": "Lander data platform",
+      "sha": "6592cbf",
+      "timestamp": "2026-10-06T18:09:50Z",
+      "message": "Career Host: Phenom, Avature, and SuccessFactors api_recipe crawlers"
+    },
+    {
+      "projectId": "lander-data",
+      "projectName": "Lander data platform",
+      "sha": "c19c4cf",
+      "timestamp": "2026-10-06T18:09:43Z",
+      "message": "Add employer feed registry and nightly runner"
+    },
+    {
+      "projectId": "lander-data",
+      "projectName": "Lander data platform",
+      "sha": "1244882",
+      "timestamp": "2026-10-06T18:09:35Z",
+      "message": "Expand iCIMS tenants via Common Crawl: pending-staged miner, harvester-consistent validator, weekly DAG wiring"
+    },
+    {
+      "projectId": "lander-data",
+      "projectName": "Lander data platform",
+      "sha": "0645567",
+      "timestamp": "2026-10-06T17:41:33Z",
+      "message": "Wire discovery scheduling: USAJobs coverage + discovery→validate→integrate"
+    },
+    {
+      "projectId": "lander-data",
+      "projectName": "Lander data platform",
+      "sha": "22acf06",
+      "timestamp": "2026-10-06T17:41:28Z",
+      "message": "Speed career host throughput without lowering quality gates"
+    },
+    {
+      "projectId": "lander-data",
+      "projectName": "Lander data platform",
+      "sha": "857c077",
+      "timestamp": "2026-10-06T17:41:23Z",
+      "message": "Raise enrich/embed ceiling: domain deadlock fix, 40k drain limit, streamed batched embeddings"
+    },
+    {
+      "projectId": "lander-data",
+      "projectName": "Lander data platform",
+      "sha": "f5ce83c",
+      "timestamp": "2026-10-06T16:57:15Z",
+      "message": "Unblock Oracle Cloud: validator, identity auto-review, api_recipe dispatch"
+    },
+    {
+      "projectId": "lander-data",
+      "projectName": "Lander data platform",
+      "sha": "39762ee",
+      "timestamp": "2026-10-06T16:57:08Z",
+      "message": "Validate and integrate every Workday board per tenant"
+    },
+    {
+      "projectId": "lander-data",
+      "projectName": "Lander data platform",
+      "sha": "014b8a5",
+      "timestamp": "2026-10-06T16:57:06Z",
+      "message": "Workday expansion plumbing: board helpers, facet partitioning, server-spread batching"
+    },
+    {
+      "projectId": "lander-data",
+      "projectName": "Lander data platform",
+      "sha": "9067293",
+      "timestamp": "2026-10-06T16:57:03Z",
+      "message": "Fix SmartRecruiters description wipe stranding rows from publication"
     },
     {
       "projectId": "lander-data",
@@ -2015,76 +2085,6 @@
       "sha": "3db0061",
       "timestamp": "2026-08-12T05:47:23Z",
       "message": "Fail closed on eligibility changes"
-    },
-    {
-      "projectId": "lander-data",
-      "projectName": "Lander data platform",
-      "sha": "31596d1",
-      "timestamp": "2026-08-12T05:41:06Z",
-      "message": "Avoid no-op ingestion schema locks"
-    },
-    {
-      "projectId": "lander-data",
-      "projectName": "Lander data platform",
-      "sha": "1d7a974",
-      "timestamp": "2026-08-12T05:34:48Z",
-      "message": "Stream near-duplicate clustering groups"
-    },
-    {
-      "projectId": "lander-data",
-      "projectName": "Lander data platform",
-      "sha": "15ff7e7",
-      "timestamp": "2026-08-12T05:32:17Z",
-      "message": "Update DAG quality path regression"
-    },
-    {
-      "projectId": "lander-data",
-      "projectName": "Lander data platform",
-      "sha": "3eb3e36",
-      "timestamp": "2026-08-12T05:29:08Z",
-      "message": "Bound nightly quality workers"
-    },
-    {
-      "projectId": "lander-data",
-      "projectName": "Lander data platform",
-      "sha": "2bc316d",
-      "timestamp": "2026-08-12T01:32:38Z",
-      "message": "Use portable JSONB evidence predicate"
-    },
-    {
-      "projectId": "lander-data",
-      "projectName": "Lander data platform",
-      "sha": "7019c4b",
-      "timestamp": "2026-08-12T01:28:17Z",
-      "message": "Harden public job quality pipeline"
-    },
-    {
-      "projectId": "lander-data",
-      "projectName": "Lander data platform",
-      "sha": "d4ad759",
-      "timestamp": "2026-08-12T00:36:20Z",
-      "message": "Make Airflow schedules Central Time explicit"
-    },
-    {
-      "projectId": "lander-data",
-      "projectName": "Lander data platform",
-      "sha": "2e00bdd",
-      "timestamp": "2026-08-12T00:18:33Z",
-      "message": "Stop indexing flushes when Google quota is exhausted"
-    },
-    {
-      "projectId": "lander-data",
-      "projectName": "Lander data platform",
-      "sha": "2ab56d0",
-      "timestamp": "2026-08-12T00:14:50Z",
-      "message": "Harden Lander ingestion and API reliability"
-    },
-    {
-      "projectId": "lander-data",
-      "projectName": "Lander data platform",
-      "sha": "b260e74",
-      "timestamp": "2026-08-10T02:58:40Z",
-      "message": "fix: checkpoint Workday ingestion batches"
     }
   ]
 }
