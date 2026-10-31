@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-30T16:43:46.727Z",
+  "generatedAt": "2026-10-31T15:46:45.314Z",
   "owner": "lukejones3",
   "totals": {
-    "commits7d": 11,
-    "commits30d": 23,
+    "commits7d": 25,
+    "commits30d": 37,
     "activeProjects": 2
   },
   "projects": [
@@ -14,10 +14,10 @@
       "repo": "job-market-analytics",
       "repository": "https://github.com/lukejones3/job-market-analytics",
       "defaultBranch": "main",
-      "commits7d": 11,
-      "commits30d": 21,
-      "lastCommitAt": "2026-10-25T03:44:38Z",
-      "lastCommitMessage": "Read release revision under the restricted API service account"
+      "commits7d": 25,
+      "commits30d": 35,
+      "lastCommitAt": "2026-10-31T07:04:20Z",
+      "lastCommitMessage": "Use shared runtime socket for Airflow memory broker"
     },
     {
       "id": "life-control-plane",
@@ -54,11 +54,6 @@
     }
   ],
   "contributionDays": [
-    {
-      "date": "2025-11-01",
-      "count": 0,
-      "level": 0
-    },
     {
       "date": "2025-11-02",
       "count": 0,
@@ -1871,11 +1866,114 @@
     },
     {
       "date": "2026-10-30",
-      "count": 0,
-      "level": 0
+      "count": 8,
+      "level": 4
+    },
+    {
+      "date": "2026-10-31",
+      "count": 6,
+      "level": 3
     }
   ],
   "recentCommits": [
+    {
+      "projectId": "lander-data",
+      "projectName": "Lander data platform",
+      "sha": "7cefbb1",
+      "timestamp": "2026-10-31T07:04:20Z",
+      "message": "Use shared runtime socket for Airflow memory broker"
+    },
+    {
+      "projectId": "lander-data",
+      "projectName": "Lander data platform",
+      "sha": "94e87a9",
+      "timestamp": "2026-10-31T06:55:40Z",
+      "message": "Schedule Human Repo memory pipelines in Airflow"
+    },
+    {
+      "projectId": "lander-data",
+      "projectName": "Lander data platform",
+      "sha": "17e688a",
+      "timestamp": "2026-10-31T04:02:21Z",
+      "message": "Patch PDF and ASN.1 parsers flagged by the refreshed release audit"
+    },
+    {
+      "projectId": "lander-data",
+      "projectName": "Lander data platform",
+      "sha": "3467cdd",
+      "timestamp": "2026-10-31T03:59:43Z",
+      "message": "Document the current Airflow recovery and reporting safeguards"
+    },
+    {
+      "projectId": "lander-data",
+      "projectName": "Lander data platform",
+      "sha": "ae58bdf",
+      "timestamp": "2026-10-31T03:58:53Z",
+      "message": "Count newly published listings in the public feed freshness metric"
+    },
+    {
+      "projectId": "lander-data",
+      "projectName": "Lander data platform",
+      "sha": "cec63a8",
+      "timestamp": "2026-10-31T03:56:53Z",
+      "message": "Use authoritative retry outcomes for expiry gates and report source health"
+    },
+    {
+      "projectId": "lander-data",
+      "projectName": "Lander data platform",
+      "sha": "30c9820",
+      "timestamp": "2026-10-30T20:11:03Z",
+      "message": "Bound report queries and align delivery deduplication with Central time"
+    },
+    {
+      "projectId": "lander-data",
+      "projectName": "Lander data platform",
+      "sha": "135c9dd",
+      "timestamp": "2026-10-30T20:07:28Z",
+      "message": "Commit SmartRecruiters companies independently under bounded concurrency"
+    },
+    {
+      "projectId": "lander-data",
+      "projectName": "Lander data platform",
+      "sha": "305b6c2",
+      "timestamp": "2026-10-30T20:02:53Z",
+      "message": "Reuse HTTP connections within SmartRecruiters company crawls"
+    },
+    {
+      "projectId": "lander-data",
+      "projectName": "Lander data platform",
+      "sha": "647c289",
+      "timestamp": "2026-10-30T20:00:25Z",
+      "message": "Preserve completed Workday job details when tenant budgets expire"
+    },
+    {
+      "projectId": "lander-data",
+      "projectName": "Lander data platform",
+      "sha": "faf7483",
+      "timestamp": "2026-10-30T19:56:38Z",
+      "message": "Run ingestion recovery safeguards against PostgreSQL in CI"
+    },
+    {
+      "projectId": "lander-data",
+      "projectName": "Lander data platform",
+      "sha": "5e34872",
+      "timestamp": "2026-10-30T19:53:38Z",
+      "message": "Bound provider crawls and protect expiry after partial detail failures"
+    },
+    {
+      "projectId": "lander-data",
+      "projectName": "Lander data platform",
+      "sha": "4c53d62",
+      "timestamp": "2026-10-30T19:48:41Z",
+      "message": "Patch MessagePack dependency flagged by release audit"
+    },
+    {
+      "projectId": "lander-data",
+      "projectName": "Lander data platform",
+      "sha": "6937756",
+      "timestamp": "2026-10-30T19:44:31Z",
+      "message": "Recover checkpointed ingestion and independent operational reports"
+    },
     {
       "projectId": "lander-data",
       "projectName": "Lander data platform",
@@ -1987,104 +2085,6 @@
       "sha": "1244882",
       "timestamp": "2026-10-06T18:09:35Z",
       "message": "Expand iCIMS tenants via Common Crawl: pending-staged miner, harvester-consistent validator, weekly DAG wiring"
-    },
-    {
-      "projectId": "lander-data",
-      "projectName": "Lander data platform",
-      "sha": "0645567",
-      "timestamp": "2026-10-06T17:41:33Z",
-      "message": "Wire discovery scheduling: USAJobs coverage + discovery→validate→integrate"
-    },
-    {
-      "projectId": "lander-data",
-      "projectName": "Lander data platform",
-      "sha": "22acf06",
-      "timestamp": "2026-10-06T17:41:28Z",
-      "message": "Speed career host throughput without lowering quality gates"
-    },
-    {
-      "projectId": "lander-data",
-      "projectName": "Lander data platform",
-      "sha": "857c077",
-      "timestamp": "2026-10-06T17:41:23Z",
-      "message": "Raise enrich/embed ceiling: domain deadlock fix, 40k drain limit, streamed batched embeddings"
-    },
-    {
-      "projectId": "lander-data",
-      "projectName": "Lander data platform",
-      "sha": "f5ce83c",
-      "timestamp": "2026-10-06T16:57:15Z",
-      "message": "Unblock Oracle Cloud: validator, identity auto-review, api_recipe dispatch"
-    },
-    {
-      "projectId": "lander-data",
-      "projectName": "Lander data platform",
-      "sha": "39762ee",
-      "timestamp": "2026-10-06T16:57:08Z",
-      "message": "Validate and integrate every Workday board per tenant"
-    },
-    {
-      "projectId": "lander-data",
-      "projectName": "Lander data platform",
-      "sha": "014b8a5",
-      "timestamp": "2026-10-06T16:57:06Z",
-      "message": "Workday expansion plumbing: board helpers, facet partitioning, server-spread batching"
-    },
-    {
-      "projectId": "lander-data",
-      "projectName": "Lander data platform",
-      "sha": "9067293",
-      "timestamp": "2026-10-06T16:57:03Z",
-      "message": "Fix SmartRecruiters description wipe stranding rows from publication"
-    },
-    {
-      "projectId": "lander-data",
-      "projectName": "Lander data platform",
-      "sha": "6ae3deb",
-      "timestamp": "2026-08-20T22:01:07Z",
-      "message": "Add resume match conversion window"
-    },
-    {
-      "projectId": "lander-data",
-      "projectName": "Lander data platform",
-      "sha": "2ac937c",
-      "timestamp": "2026-08-20T21:32:03Z",
-      "message": "Add trusted social auth provisioning"
-    },
-    {
-      "projectId": "lander-data",
-      "projectName": "Lander data platform",
-      "sha": "9a58baa",
-      "timestamp": "2026-08-20T04:32:36Z",
-      "message": "Remove obsolete backend context snapshot"
-    },
-    {
-      "projectId": "lander-data",
-      "projectName": "Lander data platform",
-      "sha": "08e3b53",
-      "timestamp": "2026-08-17T02:18:02Z",
-      "message": "feat: expand career outreach role frontiers"
-    },
-    {
-      "projectId": "lander-data",
-      "projectName": "Lander data platform",
-      "sha": "43aea4e",
-      "timestamp": "2026-08-16T21:45:08Z",
-      "message": "feat: strengthen outreach career feed"
-    },
-    {
-      "projectId": "lander-data",
-      "projectName": "Lander data platform",
-      "sha": "bc7fb36",
-      "timestamp": "2026-08-14T18:12:12Z",
-      "message": "Handle auth migration cursor rows safely"
-    },
-    {
-      "projectId": "lander-data",
-      "projectName": "Lander data platform",
-      "sha": "f31f99e",
-      "timestamp": "2026-08-14T18:10:26Z",
-      "message": "Fix magic link credential rotation"
     }
   ]
 }
